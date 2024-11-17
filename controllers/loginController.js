@@ -33,7 +33,9 @@ async function loginUserController(req, res){
 
         res.cookie('authToken', token, { 
             httpOnly: true, 
-            maxAge: 1000 * 3600 * 24 * 7 // 7d
+            sameSite: 'None', 
+            secure: true,
+            maxAge: 3600000 
         })
 
         res.status(200).json({
