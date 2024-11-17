@@ -22,25 +22,25 @@ module.exports = (io) => {
         })
 
         //join the chat room on chatid
-        socket.on('join_chat', (chatId) => {
+        socket.on('joinChat', (chatId) => {
           socket.join(chatId)
           console.log(`Socket ${socket.id} joined chat ${chatId}`)
         })
 
         // Listen for new messages
-        socket.on('send_message', async (data) => {
+        socket.on('sendMessage', async (data) => {
           const { chatId, content, senderId } = data
 
           // Save message to the database
           const message = new Message({
-            chat: chatId,
-            sender: senderId,
-            content,
+            chatId: chatId,
+            senderId: senderId,
+            content: content,
           })
           await message.save()
 
           // Emit message to the chat room
-          io.to(chatId).emit('new_message', message)
+          io.to(chatId).emit('newMessage', message)
         })
 
         socket.on('disconnect', () => {
