@@ -25,7 +25,6 @@ const getMessagesController = async (req, res) => {
   try {
     // Fetch messages for the given chatId, sorted by creation time
     const messages = await Message.find({ chatId }).sort({ createdAt: 1 });
-      console.log(messages)
     res.status(200).json({messages:messages})
   } catch (error) {
     console.error(error);
